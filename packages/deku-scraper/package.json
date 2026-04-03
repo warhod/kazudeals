@@ -1,0 +1,25 @@
+{
+  "name": "deku-scraper",
+  "version": "1.0.0",
+  "description": "Scraper for DekuDeals using cheerio",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "bun test",
+    "build": "bun build ./src/index.ts --outdir ./dist"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "dekudeals",
+    "scraper",
+    "nintendo"
+  ],
+  "author": "Kazu",
+  "license": "MIT"
+}
