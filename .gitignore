@@ -31,3 +31,6 @@ coverage/
 
 # Vercel
 .vercel
+
+# Plan
+.plan 
