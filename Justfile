@@ -1,48 +1,74 @@
-# deku-tracker task runner
+# Kazu Deals task runner
 
-# Default recipe
+# Show recipes with short descriptions (`just` uses `[doc]` / `[group]` for --list).
+
+[doc("Print available recipes and what they do")]
 default:
     @just --list
 
-# ─── Development ──────────────────────
+[group("development")]
+[doc("Start the web app dev server (apps/web)")]
 dev:
     cd apps/web && bun run dev
 
-# ─── Database ─────────────────────────
+[group("database")]
+[doc("Apply local migrations to the linked Supabase database")]
 db-push:
     bunx supabase db push
 
+[group("database")]
+[doc("Pull remote schema changes into a new local migration")]
 db-pull:
     bunx supabase db pull
 
+[group("database")]
+[doc("Reset the linked remote database (destructive)")]
 db-reset:
     bunx supabase db reset --linked
 
+[group("database")]
+[doc("Regenerate TypeScript DB types into apps/web")]
 db-types:
     bunx supabase gen types typescript --linked > apps/web/lib/supabase/database.types.ts
 
+[group("database")]
+[doc("Attach Supabase CLI to a project (pass dashboard project ref)")]
 db-link project_ref:
     bunx supabase link --project-ref {{project_ref}}
 
-# ─── Build & Test ─────────────────────
+[group("database")]
+[doc("Open browser login for Supabase CLI")]
+db-login:
+    bunx supabase login
+
+[group("build")]
+[doc("Production build for the web app")]
 build:
     cd apps/web && bun run build
 
+[group("build")]
+[doc("Run package tests for deku-scraper only")]
+test:
+    cd packages/deku-scraper && bun test
+
+[group("build")]
+[doc("Run all workspace tests (bun --recursive)")]
 test-all:
     bun test --recursive
 
+[group("build")]
+[doc("Lint the web app")]
 lint:
     cd apps/web && bun run lint
 
-# ─── Deku Scraper ──────────────────────────
+[group("scraper")]
+[doc("Compile/build the deku-scraper package")]
 scraper-build:
     cd packages/deku-scraper && bun run build
 
-test:
-    bun test
-
-# ─── Setup ────────────────────────────
+[group("setup")]
+[doc("Install deps and ensure supabase is initialized; then link a project")]
 setup:
     bun install
-    ; bunx supabase init || true
-    ; @echo "Run 'just db-link <project-ref>' to connect to your Supabase project"
+    bunx supabase init || true
+    @echo "Run 'just db-link <project-ref>' to connect to your Supabase project"
