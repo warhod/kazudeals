@@ -52,6 +52,11 @@ test:
     cd packages/deku-scraper && bun test
 
 [group("build")]
+[doc("Run apps/web unit tests (API routes, etc.)")]
+test-web:
+    cd apps/web && bun test __tests__
+
+[group("build")]
 [doc("Run all workspace tests (bun --recursive)")]
 test-all:
     bun test --recursive
