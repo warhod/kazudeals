@@ -3,8 +3,12 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function SearchBar() {
-  const [query, setQuery] = useState('');
+interface SearchBarProps {
+  initialValue?: string;
+}
+
+export default function SearchBar({ initialValue = '' }: SearchBarProps) {
+  const [query, setQuery] = useState(initialValue);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
